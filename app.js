@@ -3,10 +3,15 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var generate = require('./generate');
+
+generate();
+
+var db = require('./db');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var adminRouter = require('./routes/admin')
+var adminRouter = require('./routes/admin');
 
 var app = express();
 
@@ -43,3 +48,4 @@ app.use(function(err, req, res, next) {
 app.listen(3000);
 
 module.exports = app;
+
