@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Welcome to <%= data[0].mess %></h2>
+    <button onclick="window.location='/admin/students'">Students</button>
+    <button onclick="window.location='/admin/menu/<%= data[0].mess %>'">Menu</button>
+    <button onclick="window.location='/admin/orders'">Orders</button>
+</body>
+</html>
