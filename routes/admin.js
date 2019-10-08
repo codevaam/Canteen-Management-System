@@ -48,5 +48,11 @@ router.get('/students', function(req, res){
 })
 module.exports = router;
 
-
+router.get('/menu/:messName', function(req, res){
+  var messName = req.params.messName;
+  con.query("SELECT * FROM menu WHERE mess_id = ?", [messName], function(error, results, fields){
+    console.log(results);
+    res.render('menu', {data: results});
+  });
+})
 // ORDERS ROUTE
