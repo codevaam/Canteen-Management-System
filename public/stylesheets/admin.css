@@ -1,0 +1,39 @@
+body{
+    font-family: 'Roboto', sans-serif;
+    background-color: #343a40;
+    overflow: hidden;
+}
+
+.header { 
+    height: 10rem;
+    background-color: aqua;
+    border-bottom-right-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+}
+
+table td {
+    text-align: center;
+}
+
+table th {
+    text-align: center;
+}
+
+.page-content {
+    height: auto;
+    overflow-y: scroll;
+}
+
+.text {
+    text-align: center;
+    color: white;
+    margin-top: 1.5rem;
+    margin-bottom: 5rem;
+}
+
+.text-2 {
+    text-align: center;
+    color: white;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}

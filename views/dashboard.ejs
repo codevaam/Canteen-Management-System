@@ -1,15 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+<%- include partials/head.ejs %>
 <body>
-    <h2>Welcome to <%= data[0].mess %></h2>
-    <button onclick="window.location='/admin/students'">Students</button>
-    <button onclick="window.location='/admin/menu/<%= data[0].mess %>'">Menu</button>
-    <button onclick="window.location='/admin/orders'">Orders</button>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand" href="#">Mess Management</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+              
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                  <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                      <a class="nav-link student-info" href="#">Student</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link menu" id="<%= data[0].mess %>" href="#">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Orders</a>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+    <div class="header">
+        <div class="d-flex justify-content-center">
+            <h2 class="mt-5 font-weight-bold">Welcome to <%= data[0].mess %></h2>
+        </div>
+    </div>
+    <div class="form-content mt-4 mx-5 ml-auto mr-auto w-75"></div>
+    <div class="page-content mt-4 mx-5 ml-auto mr-auto w-75"></div>
 </body>
 </html>
