@@ -43,16 +43,42 @@ router.post('/', function(req, res){
 router.get('/students', function(req, res){
     con.query("SELECT * FROM students", function(error, results, fields){
         console.log(results);
-        res.render('studentInfo', {data: results});
+        res.json(results);
     });
 })
 module.exports = router;
 
-router.get('/menu/:messName', function(req, res){
-  var messName = req.params.messName;
+router.get('/delete', function(req, res){
+  const regno = req.query.regno;
+  var deleteQuery = 'DELETE FROM students WHERE regno="'+ regno +'"';
+  con.query(deleteQuery, function (error, result, fields) { 
+    if(error){
+      res.send({
+        message: "error in deleting",
+      })
+    }
+    if(result){
+      console.log(result);
+      res.send({
+        message: "success",
+      })
+    }
+   })
+})
+
+router.get('/menu', function(req, res){
+  const messName = req.query.mess;
   con.query("SELECT * FROM menu WHERE mess_id = ?", [messName], function(error, results, fields){
-    console.log(results);
-    res.render('menu', {data: results});
+    res.json(results);
   });
 })
 // ORDERS ROUTE
+
+// function userCheck() {
+//   if(req.sesion.name){
+//     return true;
+//   }
+//   else{
+//     return false;
+//   }
+// }
