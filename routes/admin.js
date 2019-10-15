@@ -21,6 +21,9 @@ router.post('/', function(req, res){
             if(results.length >0){
               if(results[0].password == password){
                 var data = results;
+                req.session.messname = data[0].mess;
+                console.log(data);
+                console.log(req.session);
                 res.render('dashboard', {data: data});
               }
               else{
@@ -46,8 +49,6 @@ router.get('/students', function(req, res){
         res.json(results);
     });
 })
-module.exports = router;
-
 router.get('/delete', function(req, res){
   const regno = req.query.regno;
   var deleteQuery = 'DELETE FROM students WHERE regno="'+ regno +'"';
@@ -66,12 +67,79 @@ router.get('/delete', function(req, res){
    })
 })
 
+router.get('/deleteFood', function(req, res){
+  const food_id = req.query.food_id;
+  var deleteQuery = `DELETE FROM menu WHERE id='${food_id}'`;
+  console.log(deleteQuery);
+  con.query(deleteQuery, function (error, result, fields) { 
+    if(error){
+      console.log(error);
+      res.send({
+        message: "error in deleting",
+      })
+    }
+    if(result){
+      // console.log(result);
+      res.send({
+        message: "success",
+      })
+    }
+   })
+})
+
+
+
 router.get('/menu', function(req, res){
-  const messName = req.query.mess;
-  con.query("SELECT * FROM menu WHERE mess_id = ?", [messName], function(error, results, fields){
+  console.log(req.session);
+  const messName = req.session.messname;
+  
+  con.query("SELECT * FROM menu WHERE messname = ?", [messName], function(error, results, fields){
+    console.log(error);
     res.json(results);
   });
 })
+
+router.post('/addFood', function(req, res){
+  const itemName = req.body.itemName;
+  const cost = req.body.cost;
+  var addQuery = `INSERT INTO menu values(NULL, '${itemName}', ${cost}, '${req.session.messname}')`;
+  con.query(addQuery, function (error, result, fields) { 
+    if(result){
+      res.send({
+        message: "success",
+      });
+    }
+   });
+})
+
+router.post('/addStudent', function(req, res){
+  const name = req.body.name;
+  const regno = req.body.regno;
+  const messname = req.session.messname;
+  var addQuery = `INSERT INTO students values('${name}', '${regno}', '${messname}')`;
+  con.query(addQuery, function(error, result, fields){
+    if(error){
+      console.log(error);
+    }
+    if(result){
+      res.send({
+        message: "success"
+      });
+    }
+  })
+})
+
+router.post('/orders', function(req, res){
+  const messname = req.session.messname;
+  con.query('select * from orders where messname=?',[messname], function(error, result, fields){
+    res.json(result);
+  })
+})
+
+module.exports = router;
+
+
+
 // ORDERS ROUTE
 
 // function userCheck() {
