@@ -71,6 +71,14 @@ body{
     background-color: #feb618
 }
 
+.order-bar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: whitesmoke;
+    height: 3rem;
+}
+
 .mg-top {
     margin-top: 35vh;
 }

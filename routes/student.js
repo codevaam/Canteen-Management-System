@@ -64,11 +64,38 @@ router.post('/', function (req, res) {
 router.get('/menu', function(req, res){
   console.log(req.session);
   const messName = req.session.mess;
-  
+
   con.query("SELECT * FROM menu WHERE messname = ?", [messName], function(error, results, fields){
     console.log(error);
     res.json(results);
   });
+})
+
+router.post("/addOrder", function(req, res) {
+  var regno = req.session.regno;
+  var items = req.body.items;
+  items = JSON.parse(items);
+  console.log(items);
+  for(var i=0; i<items.length; i++){
+    console.log(items[i]);
+    var order = `INSERT INTO orders VALUES('${regno}', ${items[i].id}, ${items[i].count})`;
+    con.query(order, function(error, results, fields) {
+      console.log(error);
+    })
+  }
+  var served = `INSERT INTO served VALUES('${regno}', 'false', NULL)`;
+  con.query(served, function (error, results, fields) { 
+    console.log(error);
+   })
+  res.send("success");
+})
+
+router.get("/viewOrders", function(req, res) {
+  var view = `SELECT * FROM orders RIGHT JOIN served ON orders.id=served.order_id WHERE served=false;`
+  con.query(view, function (error, results, fields) { 
+    console.log(error);
+    res.send(results);
+   })
 })
 
 module.exports = router;
