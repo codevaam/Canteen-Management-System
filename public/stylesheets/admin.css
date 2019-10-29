@@ -25,6 +25,7 @@ table th {
 
 .page-content {
     height: 500px;
+    overflow-y: scroll;
 }
 
 .text {

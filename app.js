@@ -6,7 +6,7 @@ var logger = require('morgan');
 var generate = require('./generate');
 var session = require('express-session');
 
-generate();
+// generate();
 
 var db = require('./db');
 

@@ -13,3 +13,10 @@ CREATE TABLE served (
     served varchar(5) DEFAULT 'false',
     timeOfOrder TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+DROP TABLE IF EXISTS students;
+CREATE TABLE students (
+    name VARCHAR(20),
+    password VARCHAR(20),
+    
+)

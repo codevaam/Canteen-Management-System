@@ -138,4 +138,5 @@ table th {
     height: 500px;
     background-color: #fdd24b;
     overflow-y: auto;
+    padding-bottom: 5rem;
 }
