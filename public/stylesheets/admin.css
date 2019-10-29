@@ -4,6 +4,10 @@ body{
     overflow: hidden;
 }
 
+body::-webkit-scrollbar {
+    width: 0.1em;
+}
+
 .header { 
     height: 10rem;
     background-color: aqua;
@@ -20,7 +24,7 @@ table th {
 }
 
 .page-content {
-    height: auto;
+    height: 500px;
     overflow-y: scroll;
 }
 
