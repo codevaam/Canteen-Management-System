@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var con = require('../db');
 var io = require('socket.io')();
+var _ = require('underscore');
 
 router.get('/', function (req, res) {
   res.render('studentLogin');
@@ -81,7 +82,7 @@ router.post("/addOrder", function (req, res) {
   console.log(items);
   for (var i = 0; i < items.length; i++) {
     console.log(items[i]);
-    var order = `INSERT INTO orders VALUES('${regno}', ${items[i].id}, ${items[i].count})`;
+    var order = `INSERT INTO orders VALUES('${regno}', ${items[i].id}, ${items[i].count}, NULL)`;
     con.query(order, function (error, results, fields) {
       console.log(error);
     })
@@ -102,9 +103,10 @@ router.post("/addOrder", function (req, res) {
 router.get("/viewOrders", function (req, res) {
   var orderid = req.session.regno;
   console.log(orderid);
-  var view = `SELECT served.timeOfOrder, served.served, menu.itemname,orders.quantity FROM orders RIGHT JOIN served ON orders.id=served.order_id LEFT JOIN menu ON orders.food_id=menu.id WHERE served=false and order_id='${orderid}';`
+  var view = `SELECT served.timeOfOrder, served.served, menu.itemname,orders.quantity FROM orders RIGHT JOIN served ON orders.timeOfOrder=served.timeOfOrder LEFT JOIN menu ON orders.food_id=menu.id WHERE served=false and order_id='${orderid}';`
   con.query(view, function (error, results, fields) {
-    console.log(results);
+    // var groupData = _.groupBy(results, function(d){return d.timeOfOrder});
+    // console.log(groupData);
     res.send(results);
   })
 })

@@ -1,9 +1,9 @@
 
-
 // const socket = io('http://localhost:8080');
 // socket.on('news', function(data) {
 //     console.log(data);
 // })
+
 
 $(document).on("click", ".student-info", function (e) {
     $(".active").removeClass("active");
@@ -140,13 +140,24 @@ $(document).on("click", ".view-orders", function (e) {
         method: "GET",
         url: "/admin/orders",
         success: data => {
-            console.log(data);
-            var pageContent = '<table class="table table-dark"><tr><th>Time</th> <th>Order id</th><th>Mark Ready</th></tr>'
-            for (var i = 0; i < data.length; i++) {
-                if (data[i].served == 'false')
-                    pageContent += '<tr><td>' + data[i].timeOfOrder + '</td><td>' + data[i].order_id + '</td><td><button value=' + data[i].timeOfOrder + ' class="btn btn-success order-ready">Ready</button></td></tr>'
-            }
-            pageContent += '<div class="single-item"></div></table>'
+            var pageContent = '';
+            var i = 0;
+            data = _.groupBy(data, 'id')
+            Object.keys(data).forEach(key=>{
+                var timeOfOrder;
+                console.log(data[key][data[key].length-1])
+                if(data[key][data[key].length-1].served=='false'){
+                    pageContent += `<div class="card mb-auto mx-auto my-3 col-md-11"><div class="card-body"><h5 class="card-title">${data[key][0].id}</h5><p class="card-text"><span class="cost">`;
+                    for(i=0;i<data[key].length;i++){
+                        if(data[key][i].served == 'false'){
+                            pageContent += `${data[key][i].itemname}: ${data[key][i].quantity} <br>`;
+                            timeOfOrder = data[key][i].timeOfOrder;
+                        }
+                    }
+                    pageContent += `<button value=${timeOfOrder} class="btn btn-success order-ready mt-3">Ready</button>`
+                    pageContent += '</span></p></div></div>'             
+                }
+             });
             $(".page-content").html(pageContent);
             $(".form-content").html('');
         }

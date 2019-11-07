@@ -71,6 +71,10 @@ body{
     background-color: #feb618
 }
 
+.bg-color2 {
+    background-color: #45f542;
+}
+
 .order-bar {
     position: absolute;
     bottom: 0;
@@ -83,7 +87,7 @@ body{
     margin-top: 35vh;
 }
 
-.login-button, .order-button {
+.login-button, .order-button, .setpsw-button {
     width: 10vh;
     background-color: white;
     color: green;

@@ -3,6 +3,9 @@ var router = express.Router();
 var con = require('../db');
 var server = require('http').Server(router);
 var io = require('socket.io')(server);
+var nodemailer = require('nodemailer');
+var EmailTemplate = require('email-templates').EmailTemplate;
+require('dotenv').config();
 
 server.listen(8080);
 
@@ -120,7 +123,7 @@ router.post('/addFood', function (req, res) {
   });
 })
 
-router.post('/addStudent', function (req, res) {
+router.post('/addStudent',async function (req, res) {
   const name = req.body.name;
   const regno = req.body.regno;
   const messname = req.session.messname;
@@ -130,6 +133,28 @@ router.post('/addStudent', function (req, res) {
       console.log(error);
     }
     if (result) {
+      var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'devamtrivedi71@gmail.com',
+          pass: process.env.PASSWD
+        }
+      });
+
+      var mailOptions = {
+        from: 'devamtrivedi71@gmail.com',
+        to: 'devamtrivedi@ymail.com',
+        subject: 'Set your password',
+        html: `<h2>Welcome to ${messname}</h2><p>Set your password</p><a href="http://localhost:3000/auth/set_password/${regno}">here</a>`
+      };
+
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
       res.send({
         message: "success"
       });
@@ -139,7 +164,7 @@ router.post('/addStudent', function (req, res) {
 
 router.get('/orders', function (req, res) {
   const messname = req.session.messname;
-  con.query('SELECT * FROM served', function (error, result, fields) {
+  con.query('SELECT orders.id, menu.itemname, served.served, orders.quantity, served.timeOfOrder FROM orders JOIN served ON served.timeOfOrder = orders.timeOfOrder JOIN menu on orders.food_id = menu.id', function (error, result, fields) {
     console.log(result);
     res.json(result);
   })
