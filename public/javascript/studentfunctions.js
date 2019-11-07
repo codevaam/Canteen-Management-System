@@ -49,6 +49,8 @@ $(document).on("click", ".add-to-cart", function (e) {
     console.log(cost);
     cost = parseInt(cost);
     if (balance > cost) {
+        balance = balance - cost;
+        $(".balance-value").html(balance);
         total = total + cost
         $(".total-cost").html(total);
         fId = $(this).parent().children(".count").attr("id");
@@ -75,12 +77,20 @@ $(document).on("click", ".remove-from-cart", function (e) {
     e.preventDefault();
     var count = $(this).parent().children("span").html();
     count = parseInt(count) - 1
+    var balance = $(".balance-value").html();
+    balance = parseInt(balance);
+
     $(this).parent().children(".count").html(count);
     var cost = $(this).parent().children().children(".cost").html();
+
     console.log(cost);
     total = total - parseInt(cost)
+    balance = balance + parseInt(cost);
+    $(".balance-value").html(balance);
+    
     $(".total-cost").html(total);
     fId = $(this).parent().children(".count").attr("id");
+
     if (foodId.length !== 0) {
         let result = foodId.map(a => a.id);
         if (result.includes(fId)) {

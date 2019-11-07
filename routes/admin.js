@@ -173,9 +173,36 @@ router.get('/orders', function (req, res) {
 router.post('/serve', function (req, res) {
   let time = req.body.time;
   const query = `UPDATE served SET served='true' WHERE timeOfOrder='${time}'`;
+
   con.query(query, function (error, result, field) {
-    console.log(error);
-    res.json(result);
+    if(error){
+      console.log(error);
+    }
+    else if(result) {
+      var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'devamtrivedi71@gmail.com',
+          pass: process.env.PASSWD
+        }
+      });
+
+      var mailOptions = {
+        from: 'devamtrivedi71@gmail.com',
+        to: 'devamtrivedi@ymail.com',
+        subject: 'Food ready',
+        html: `<h2>Your delicious food is ready</h2><p>Come within 15 mins else...</p>`
+      };
+
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
+      res.json(result);
+    }
   })
 })
 
