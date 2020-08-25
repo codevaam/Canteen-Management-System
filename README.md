@@ -5,6 +5,9 @@
 * This also enables the canteen staff to update the food items on a daily basis
 * This project also uses a balance system for students(Every student has limited prepaid amount in the balance using which they can buy food)
 
+### Here are some screenshots:
+[alt text](https://raw.githubusercontent.com/codevaam/Canteen-Management-System/master/public/images/editMenu.png)
+
 ### Run the app
 * Clone the repo and create your branch
    ```git
