@@ -6,6 +6,17 @@
 * This project also uses a balance system for students(Every student has limited prepaid amount in the balance using which they can buy food)
 
 ### Here are some screenshots:
+* Student login
+![alt text](https://raw.githubusercontent.com/codevaam/Canteen-Management-System/master/public/images/studentLogin.png)
+
+* Menu
+![alt text](https://raw.githubusercontent.com/codevaam/Canteen-Management-System/master/public/images/menu.png)
+
+* Order list
+![alt text](https://raw.githubusercontent.com/codevaam/Canteen-Management-System/master/public/images/orders.png)
+
+* Admin interface
+![alt text](https://raw.githubusercontent.com/codevaam/Canteen-Management-System/master/public/images/ordersAdmin.png)
 ![alt text](https://raw.githubusercontent.com/codevaam/Canteen-Management-System/master/public/images/editMenu.png)
 
 ### Run the app
