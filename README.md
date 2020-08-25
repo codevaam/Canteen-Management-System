@@ -1,20 +1,17 @@
-# CSE2004-project
+# Canteen management System
 
-### Todo
-  - [ ] Login page
-  - [ ] Admin feature
-  - [ ] Student feature
+### Features
+* This app solves the time spent in the canteen lines in any college. This project is used to pre-order food and get email notification when the food is ready. This makes it easier for the students to order food while sitting in the class itself
+* This also enables the canteen staff to update the food items on a daily basis
+* This project also uses a balance system for students(Every student has limited prepaid amount in the balance using which they can buy food)
 
 ### Run the app
 * Clone the repo and create your branch
    ```git
    git clone
-   git branch <your feature name>
-   git checkout <your branch>
-   ```
-
-* Initializing the node server
-   ```node
+   
+   npm
    npm install
    nodemon app.js
    ```
+
